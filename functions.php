@@ -96,12 +96,11 @@ if (!isset($content_width))
  * Register scripts and styles.
  */
 function theme_scripts_styles() {
-    wp_deregister_script('jquery');
-    wp_register_script('jquery', false);
-    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Heebo:300,400,500,700,900&display=swap', array(), '0.1');
-    wp_enqueue_style('styles-min', get_template_directory_uri() . '/dist/style.min.css', array(), '0.1');
-    wp_enqueue_script('scripts-min', get_template_directory_uri() . '/dist/scripts.min.js', array(), true);
-    
+    //wp_deregister_script('jquery');
+    //wp_register_script('jquery', false);
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Heebo:400,700&display=swap', array(), '0.1');
+    wp_enqueue_style('styles-min', get_template_directory_uri() . '/dist/style.min.css', array(), '0.1.0');
+    wp_enqueue_script('scripts-min', get_template_directory_uri() . '/dist/scripts.min.js', array(), '0.1.0', true);
 }
 add_action( 'wp_enqueue_scripts', 'theme_scripts_styles' );
 
@@ -123,22 +122,6 @@ function theme_gutenberg_assets() {
 	wp_enqueue_script( 'theme-editor-js', get_theme_file_uri( '/js/editor.js' ), array( 'wp-blocks', 'wp-dom' ), wp_get_theme()->get('Version'), true );
 }
 add_action( 'enqueue_block_editor_assets', 'theme_gutenberg_assets' );
-
-
-/**
-* Dequeue jQuery Migrate script in WordPress and move jQuery to footer.
-*/
-function theme_remove_jquery_migrate($scripts) {
-    if(!is_admin()) {
-        // Remove jQuery Migrate
-        $scripts->remove( 'jquery');
-        $scripts->add( 'jquery', false, array( 'jquery-core' ), '1.12.4' );
-        // Move jQuery to footer
-        $scripts->add_data('jquery', 'group', 1);
-        $scripts->add_data('jquery-core', 'group', 1);
-    }
-}
-add_filter( 'wp_default_scripts', 'theme_remove_jquery_migrate' );
 
 
 /*
@@ -179,27 +162,20 @@ add_filter('upload_mimes', 'cc_mime_types');
 
 
 // Remove the <div> surrounding the dynamic navigation to cleanup markup
-function my_wp_nav_menu_args($args = '')
-{
+function my_wp_nav_menu_args($args = '') {
     $args['container'] = false;
     return $args;
 }
-
-// Remove Injected classes, ID's and Page ID's from Navigation <li> items
-function my_css_attributes_filter($var)
-{
-    return is_array($var) ? array() : '';
-}
+add_filter('wp_nav_menu_args', 'my_wp_nav_menu_args');
 
 // Remove invalid rel attribute values in the categorylist
-function remove_category_rel_from_category_list($thelist)
-{
+function remove_category_rel_from_category_list($thelist) {
     return str_replace('rel="category tag"', 'rel="tag"', $thelist);
 }
+add_filter('the_category', 'remove_category_rel_from_category_list');
 
 // Add page slug to body class, love this - Credit: Starkers Wordpress Theme
-function add_slug_to_body_class($classes)
-{
+function add_slug_to_body_class($classes) {
     global $post;
     if (is_home()) {
         /*$key = array_search('blog', $classes);
@@ -217,11 +193,10 @@ function add_slug_to_body_class($classes)
 
     return $classes;
 }
+add_filter('body_class', 'add_slug_to_body_class'); // Add slug to body class (Starkers build)
 
 // If Dynamic Sidebar Exists
-if (function_exists('register_sidebar'))
-{   
-
+if (function_exists('register_sidebar')) {
     // Define Footer Widget Area 1
     register_sidebar(array(
         'name' => __('Footer 1', 'blank'),
@@ -235,8 +210,7 @@ if (function_exists('register_sidebar'))
 }
 
 // Remove wp_head() injected Recent Comment styles
-function my_remove_recent_comments_style()
-{
+function my_remove_recent_comments_style() {
     global $wp_widget_factory;
     remove_action('wp_head', array(
         $wp_widget_factory->widgets['WP_Widget_Recent_Comments'],
@@ -247,17 +221,10 @@ add_action('widgets_init', 'my_remove_recent_comments_style'); // Remove inline 
 
 
 // Remove 'text/css' from our enqueued stylesheet
-function html5_style_remove($tag)
-{
+function html5_style_remove($tag) {
     return preg_replace('~\s+type=["\'][^"\']++["\']~', '', $tag);
 }
-
-// Remove thumbnail width and height dimensions that prevent fluid images in the_thumbnail
-function remove_thumbnail_dimensions( $html )
-{
-    $html = preg_replace('/(width|height)=\"\d*\"\s/', "", $html);
-    return $html;
-}
+add_filter('style_loader_tag', 'html5_style_remove');
 
 
 
@@ -281,19 +248,10 @@ remove_action('wp_head', 'rel_canonical');
 remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 
 // Add Filters
-add_filter('body_class', 'add_slug_to_body_class'); // Add slug to body class (Starkers build)
 add_filter('widget_text', 'do_shortcode'); // Allow shortcodes in Dynamic Sidebar
 add_filter('widget_text', 'shortcode_unautop'); // Remove <p> tags in Dynamic Sidebars (better!)
-add_filter('wp_nav_menu_args', 'my_wp_nav_menu_args'); // Remove surrounding <div> from WP Navigation
-// add_filter('nav_menu_css_class', 'my_css_attributes_filter', 100, 1); // Remove Navigation <li> injected classes (Commented out by default)
-// add_filter('nav_menu_item_id', 'my_css_attributes_filter', 100, 1); // Remove Navigation <li> injected ID (Commented out by default)
-// add_filter('page_css_class', 'my_css_attributes_filter', 100, 1); // Remove Navigation <li> Page ID's (Commented out by default)
-add_filter('the_category', 'remove_category_rel_from_category_list'); // Remove invalid rel attribute
 add_filter('the_excerpt', 'shortcode_unautop'); // Remove auto <p> tags in Excerpt (Manual Excerpts only)
 add_filter('the_excerpt', 'do_shortcode'); // Allows Shortcodes to be executed in Excerpt (Manual Excerpts only)
-add_filter('style_loader_tag', 'html5_style_remove'); // Remove 'text/css' from enqueued stylesheet
-//add_filter('post_thumbnail_html', 'remove_thumbnail_dimensions', 10); // Remove width and height dynamic attributes to thumbnails
-//add_filter('image_send_to_editor', 'remove_thumbnail_dimensions', 10); // Remove width and height dynamic attributes to post images
 
 // Remove Filters
 remove_filter('the_excerpt', 'wpautop'); // Remove <p> tags from Excerpt altogether
