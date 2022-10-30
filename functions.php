@@ -53,35 +53,34 @@ function theme_setup() {
     // Disable User Notification of Password Change Confirmation
     add_filter( 'send_email_change_email', '__return_false' );
 
-    add_theme_support( 'editor-color-palette', array(
-		array(
-			'name'  => __( 'White' ),
-			'slug'  => 'white',
-			'color' => '#fff',
-		),
-        array(
-			'name'  => __( 'Green' ),
-			'slug'  => 'green',
-			'color' => '#00D796',
-		),
-        array(
-			'name'  => __( 'Blue' ),
-			'slug'  => 'blue',
-			'color' => '#023D58',
-		),
-        array(
-			'name'  => __( 'Pink' ),
-			'slug'  => 'pink',
-			'color' => '#FFD9DA',
-		),
-	));
+    // add_theme_support( 'editor-color-palette', array(
+	// 	array(
+	// 		'name'  => __( 'White' ),
+	// 		'slug'  => 'white',
+	// 		'color' => '#fff',
+	// 	),
+    //     array(
+	// 		'name'  => __( 'Green' ),
+	// 		'slug'  => 'green',
+	// 		'color' => '#00D796',
+	// 	),
+    //     array(
+	// 		'name'  => __( 'Blue' ),
+	// 		'slug'  => 'blue',
+	// 		'color' => '#023D58',
+	// 	),
+    //     array(
+	// 		'name'  => __( 'Pink' ),
+	// 		'slug'  => 'pink',
+	// 		'color' => '#FFD9DA',
+	// 	),
+	// ));
 }
 endif; // if theme_setup
 add_action( 'after_setup_theme', 'theme_setup' );
 
 
-if (!isset($content_width))
-{
+if (!isset($content_width)) {
     $content_width = 900;
 }
 
@@ -174,7 +173,7 @@ function remove_category_rel_from_category_list($thelist) {
 }
 add_filter('the_category', 'remove_category_rel_from_category_list');
 
-// Add page slug to body class, love this - Credit: Starkers Wordpress Theme
+// Add page slug to body class
 function add_slug_to_body_class($classes) {
     global $post;
     if (is_home()) {
@@ -233,7 +232,7 @@ add_filter('style_loader_tag', 'html5_style_remove');
 \*------------------------------------*/
 
 
-// Remove Actions
+// Head clean-up
 remove_action('wp_head', 'feed_links_extra', 3); // Display the links to the extra feeds such as category feeds
 remove_action('wp_head', 'feed_links', 2); // Display the links to the general feeds: Post and Comment Feed
 remove_action('wp_head', 'rsd_link'); // Display the link to the Really Simple Discovery service endpoint, EditURI link
