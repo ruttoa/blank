@@ -113,7 +113,10 @@
         "typography": {}
       },
       "core/heading": {}
-    }
+    },
+    "custom": {
+      "primary-color": "var(--wp--preset--color--green)"
+    } 
   },
   "styles": {
     "spacing": {

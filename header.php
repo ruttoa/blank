@@ -26,7 +26,8 @@
 			<header class="site-header" role="banner">
 				<nav class="navbar" role="navigation" aria-label="Primary navigation">
 					<?php theme_logo(); ?>
-				
+
+					<?php if (has_nav_menu('header-menu')) : ?>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-wrapper" aria-expanded="false" aria-label="Toggle navigation" aria-controls="nav-wrapper">
 						<span class="hamburger-box">
 							<span class="hamburger-inner"></span>
@@ -34,15 +35,14 @@
 					</button>
 
 					<div class="collapse" id="nav-wrapper">
-						<?php 
-						if (has_nav_menu('header-menu')) :
-							wp_nav_menu([
-								'theme_location' => 'header-menu', 
-								'container' => false, 
-								'menu_class' => 'navbar-nav'
-							]);
-						endif; 
+						<?php
+						wp_nav_menu([
+							'theme_location' => 'header-menu', 
+							'container' => false, 
+							'menu_class' => 'navbar-nav'
+						]);
 						?>
 					</div>
+					<?php endif; ?>
 				</nav>
 			</header>

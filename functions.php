@@ -52,29 +52,6 @@ function theme_setup() {
 
     // Disable User Notification of Password Change Confirmation
     add_filter( 'send_email_change_email', '__return_false' );
-
-    // add_theme_support( 'editor-color-palette', array(
-	// 	array(
-	// 		'name'  => __( 'White' ),
-	// 		'slug'  => 'white',
-	// 		'color' => '#fff',
-	// 	),
-    //     array(
-	// 		'name'  => __( 'Green' ),
-	// 		'slug'  => 'green',
-	// 		'color' => '#00D796',
-	// 	),
-    //     array(
-	// 		'name'  => __( 'Blue' ),
-	// 		'slug'  => 'blue',
-	// 		'color' => '#023D58',
-	// 	),
-    //     array(
-	// 		'name'  => __( 'Pink' ),
-	// 		'slug'  => 'pink',
-	// 		'color' => '#FFD9DA',
-	// 	),
-	// ));
 }
 endif; // if theme_setup
 add_action( 'after_setup_theme', 'theme_setup' );
@@ -95,11 +72,12 @@ if (!isset($content_width)) {
  * Register scripts and styles.
  */
 function theme_scripts_styles() {
+    $ver = wp_get_theme()->get( 'Version' );
     //wp_deregister_script('jquery');
     //wp_register_script('jquery', false);
-    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Heebo:400,700&display=swap', array(), '0.1');
-    wp_enqueue_style('styles-min', get_template_directory_uri() . '/dist/style.min.css', array(), '0.1.0');
-    wp_enqueue_script('scripts-min', get_template_directory_uri() . '/dist/scripts.min.js', array(), '0.1.0', true);
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=Heebo:400,700&display=swap', array(), $ver);
+    wp_enqueue_style('styles-min', get_template_directory_uri() . '/dist/style.min.css', array(), $ver);
+    wp_enqueue_script('scripts-min', get_template_directory_uri() . '/dist/scripts.min.js', array( 'jquery' ), $ver, true);
 }
 add_action( 'wp_enqueue_scripts', 'theme_scripts_styles' );
 
