@@ -1,43 +1,5 @@
 body {
-    font-family: $font-family-primary;
-    letter-spacing: .025rem;
-    line-height: 1.65;
-    color: #000;
     overflow-x: hidden;
-}
-h1 {
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 1.15;
-}
-h2, h3, h4 {
-    font-weight: 300;
-    line-height: 1.25;
-}
-h2 {
-    font-size: 3rem;
-}
-h3 {
-    font-size: 2.2rem;
-}
-strong, b {
-    font-weight: 700;
-}
-a {
-    color: inherit;
-    &:hover {
-        color: $green;
-    }
-}
-.has-large-font-size {
-    line-height: 1.25;
-}
-.has-large-font-size strong,
-h2 strong, h3 strong, h4 strong {
-    font-weight: 500;
-}
-.wp-block-media-text {
-    font-weight: 300;
 }
 img,
 video {
@@ -66,149 +28,63 @@ img.emoji {
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
-.wp-block-cover .wp-block-cover__inner-container {
-    max-width: 768px;
-    margin: 0 auto;
-}
-.wp-block-cover {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    min-height: 300px;
-    h1, h2, h3, h4, p {
-        padding: 0;
-        margin-bottom: 1.5rem;
-    }
-}
-
-.wp-block-button {
-    color: inherit;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-.btn, 
-.btn.btn-primary,
-.wp-block-button__link,
-.wp-block-button__link:visited,
-.editor-styles-wrapper .wp-block-button__link {
-    border: 0;
-    font-family: $font-family-primary;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    font-size: .9rem;
-    padding: 1rem 1.5rem .95rem;
-    font-weight: 900;
-    background: $blue;
-    border-radius: 100px;
-    transition: 300ms all ease-in-out;
-    &:active,
-    &.active,
-    &:focus, 
-    &:hover {
-        background-color: $green;
-        color: #fff;
-        text-decoration: none;
-        transition: none;
-    }
+// .btn, 
+// .btn.btn-primary,
+// .wp-block-button__link,
+// .wp-block-button__link:visited,
+// .editor-styles-wrapper .wp-block-button__link {
+//     border: 0;
+//     font-family: $font-family-primary;
+//     color: #fff;
+//     text-transform: uppercase;
+//     letter-spacing: 0;
+//     font-size: .9rem;
+//     padding: 1rem 1.5rem .95rem;
+//     font-weight: 900;
+//     background: $blue;
+//     border-radius: 100px;
+//     transition: 300ms all ease-in-out;
+//     &:active,
+//     &.active,
+//     &:focus, 
+//     &:hover {
+//         background-color: $green;
+//         color: #fff;
+//         text-decoration: none;
+//         transition: none;
+//     }
+// }
+.wp-block-button__link:not(.has-background):hover {
+    background-color: color-mix(in srgb, var(--wp--preset--color--contrast) 5%, transparent);
 }
 
-.has-v-up,
-.has-v-down {
-    position: relative;
-    overflow: visible;
+.entry-content > *,
+.primary > * {
+    margin-block-start: var(--wp--style--block-gap);
+    margin-block-end: 0;
 }
-.has-v-up:after,
-.has-v-down:after {
-    content:"";
-    display: block;
-    position: absolute;
-    width: 100%;
-    width: calc(100% - 4rem);
-    min-height: auto;
-    min-width: 1400px;
-    max-width: 1500px;
-    height: 224px;
-    background: transparent url('../img/vendelin-v.svg') right center no-repeat;
-    background-size: contain;
-    z-index: 3;
+.page-template-page-blank .entry-content > *:first-child {
+    margin-block-start: 0;
 }
-.has-v-up:after {
-    top: 0;
-    transform: translateY(-50%);
+.entry-content > :where(:not(.alignleft):not(.alignright):not(.alignfull)),
+.primary > * {
+    max-width: var(--wp--style--global--content-size);
+    margin-left: auto;
+    margin-right: auto;
 }
-.has-v-down:after {
-    transform: translateY(50%);
-    bottom: 0;
+.entry-content > .alignwide {
+    max-width: var(--wp--style--global--wide-size);
 }
 
-@media (min-width: 576px) {}
+@media (min-width: 601px) {}
 
-@media (min-width: 768px) {
-    .entry-content .alignfull {
-        margin-left: calc((100% - 100vw) / 2);
-		margin-right: calc((100% - 100vw) / 2);
-        width: 100vw;
-    }
-    .entry-content .alignwide {
-		margin-left: calc((100% - 100vw) / 4);
-		margin-right: calc((100% - 100vw) / 4);
-		width: calc(100% + ((100vw - 100%) / 2));
-	}
-}
-
-@media (min-width: 992px) {}
-
-@media (min-width: 1200px) {}
-
-@media (max-width: 1199px) {
-    .has-v-up:after,
-    .has-v-down:after {
-        height: 144px;
-        min-width: auto;
-    }
-}
-
-@media (max-width: 991px) {}
-
-@media (max-width: 767px) {
-    .entry-content {
-        padding: 0 15px;
-    }
-    .entry-content > .alignfull,
-    .entry-content > .alignwide {
-        margin-left: -15px;
-        margin-right: -15px;
-        width: 100vw;
-    }
-}
 
 // Gutenberg mobile break point
 @media (max-width: 600px) {
     .wp-block-media-text.is-stacked-on-mobile figure {
         margin-bottom: 1.5rem;
     }
-    .entry-content .wp-block-group.alignfull {
-        padding-left: 15px;
-        padding-right: 15px;
-        .alignwide {
-            margin-left: 0;
-            margin-right: 0;
-            width: 100%;
-        }
-    }
 }
 
 /* Extra small devices (portrait phones, less than 575px) */
-@media (max-width: 575px) {
-    h1, h2 {
-        font-size: 2.5rem; 
-    }
-    .has-large-font-size {
-        font-size: 2rem;
-    }
-    .has-v-up:after,
-    .has-v-down:after {
-        height: 107px;
-    }
-
-}
+@media (max-width: 575px) {}

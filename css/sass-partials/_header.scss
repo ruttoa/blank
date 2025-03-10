@@ -2,6 +2,8 @@
     HEADER
 \*------------------------------------*/
 
+@use "sass-partials/variables" as *;
+
 .navbar-brand {
     margin-right: auto;
     width: auto;
@@ -13,7 +15,7 @@
     display: block;
     width: 40px;
     height: 40px;
-    background: #000;
+    background: var(--wp--preset--color--contrast);
     border-radius: 50%;
 }
 .logo-img {
@@ -36,6 +38,12 @@
     .menu-item {
         display: block;
         padding: .5rem 1rem;
+        a {
+            text-decoration: none;
+            &:hover {
+                color: var(--wp--preset--color--accent-1)
+            }
+        }
     }
     .menu-item-has-children {
         position: relative;
@@ -46,8 +54,8 @@
             width: 8px;
             height: 8px;
             border: 0;
-            border-left: solid 2px $brand-primary;
-            border-bottom: solid 2px $brand-primary;
+            border-left: solid 2px var(--wp--preset--color--contrast);
+            border-bottom: solid 2px var(--wp--preset--color--contrast);
             margin-left: 0.5rem;
             transform: rotate(-45deg);
             transform-origin: center;
@@ -67,10 +75,10 @@
             padding: 0.5rem 0;
             margin: 0;
             font-size: inherit;
-            color: #212529;
+            color: var(--wp--preset--color--contrast);
             text-align: left;
             list-style: none;
-            background-color: #fff;
+            background-color: var(--wp--preset--color--base);
             background-clip: padding-box;
             &.show {
                 display: block;
@@ -122,7 +130,7 @@
         .hamburger-inner,
         .hamburger-inner::before,
         .hamburger-inner::after {
-            background-color: #fff;
+            background-color: var(--wp--preset--color--base);
         }
     }
 }
@@ -144,7 +152,7 @@
 .hamburger-inner::after {
     width: 40px;
     height: 4px;
-    background-color: $brand-primary;
+    background-color: var(--wp--preset--color--contrast);
     border-radius: 4px;
     position: absolute;
     transition-property: transform;
@@ -175,20 +183,6 @@
 	line-height: 1.2;
 	margin-bottom: 0;
     font-weight: 400;
-}
-.site-header .btn {
-    float: right;
-    &:after {
-        content: "";
-        height: 18px;
-        width: 11px;
-        display: inline-block;
-        background: transparent url('../img/cell-phone.svg') center center no-repeat;
-        background-size: contain;
-        vertical-align: middle;
-        margin-left: 1rem;
-        margin-top: -6px;
-    }
 }
 
 @media (min-width: 576px) {}
@@ -230,8 +224,8 @@
         width: 100%;
         height: 100vh;
         overflow-y: scroll;
-        background: $brand-primary;
-        color: #fff;
+        background: var(--wp--preset--color--contrast);
+        color: var(--wp--preset--color--base);
         z-index: 1001;
         transition: all 300ms ease;
         opacity: 0;
@@ -260,21 +254,23 @@
     }
     .navbar .navbar-nav {
         margin: 0 auto;
-        color: #fff;
+        color: var(--wp--preset--color--base);
         width: 100%;
         padding: 115px 50px 1rem;
         .menu-item {
             padding: 0;
+            font-size: var(--wp--preset--font-size--h-5);
+            font-weight: bold;
             a {
                 padding: 1.5rem 0;
                 &:hover,
                 &:focus {
-                    color: #fff;
+                    color: var(--wp--preset--color--base);
                 }
             }
         }
         .menu-item:not(.menu-btn) {
-            border-bottom: solid 2px #fff;
+            border-bottom: solid 2px rgba(255, 255, 255, 0.1);
             a {
                 transition: all 500ms ease;
                 &:hover,
@@ -284,12 +280,12 @@
             }
         }
         a {
-            color: #fff;
+            color: var(--wp--preset--color--base);
             display: block;
         }
         .menu-item-has-children {
             > a::after {
-                border-color: #fff;
+                border-color: var(--wp--preset--color--base);
             }
             .sub-menu {
                 position: relative;
@@ -309,17 +305,17 @@
         }
     }
     .site-header .menu-btn a {
-        border-color: #fff;
-        color: #fff;
+        border-color: var(--wp--preset--color--base);
+        color: var(--wp--preset--color--base);
         display: block;
         text-align: center;
         margin: 1.5rem 0;
         &:active,
         &:focus, 
         &:hover {
-            border-color: #fff;
-            background-color: #fff;
-            color: $brand-primary;
+            border-color: var(--wp--preset--color--base);
+            background-color: var(--wp--preset--color--base);
+            color: var(--wp--preset--color--contrast);
         }
     }
 }

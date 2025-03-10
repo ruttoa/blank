@@ -2,8 +2,8 @@
 Used to style the TinyMCE editor.
 */
 
-@import "sass-partials/_variables";
-@import "sass-partials/_content";
+@use "sass-partials/_variables";
+@use "sass-partials/_content";
 
 // .btn,
 // .wp-block-button__link{

@@ -3,7 +3,7 @@
 /* Load Gulp and plugins */
 const { series, parallel, watch, src, dest } = require("gulp"),
 	concat = require("gulp-concat"),
-	sass = require("gulp-sass"),
+	sass = require("gulp-sass")(require('sass')),
 	sourcemaps = require("gulp-sourcemaps"),
 	autoprefixer = require("gulp-autoprefixer"),
 	uglify = require("gulp-uglify"),
@@ -12,8 +12,8 @@ const { series, parallel, watch, src, dest } = require("gulp"),
 	browserSync = require("browser-sync").create(),
 	wpPot = require('gulp-wp-pot'),
 
-	siteURL = "vendelin.localhost", // for browser-sync
-	textDomain = "vendelin", // for translations
+	siteURL = process.env.SITE_URL, // for browser-sync
+	textDomain = "blank", // for translations
 
 	/** JS source files to concatenate and uglify */
 	uglifySrc = [
@@ -33,21 +33,7 @@ function styles() {
 		.pipe(sass({
 			outputStyle: 'compressed' // minifies style.min.css
 		}).on('error', sass.logError))
-		.pipe(autoprefixer({
-			overrideBrowserslist: [ // https://github.com/ai/browserslist#queries
-				'last 2 versions',
-				'> 5%',
-				'ie >= 9',
-				'ie_mob >= 10',
-				'ff >= 30',
-				'chrome >= 34',
-				'safari >= 7',
-				'opera >= 23',
-				'ios >= 7',
-				'android >= 4',
-				'bb >= 10'
-			]
-		}))
+		.pipe(autoprefixer())
 		.pipe(sourcemaps.write('/', { // write style.min.css.map to same directory as style.min.css
 			includeContent: false,
 			sourceRoot: '../css' // relative to minified output location
@@ -61,21 +47,7 @@ function styles_editor() {
 		.pipe(sass({
 			outputStyle: 'compressed' // minify
 		}).on('error', sass.logError))
-		.pipe(autoprefixer({
-			overrideBrowserslist: [ // https://github.com/ai/browserslist#queries
-				'last 2 versions',
-				'> 5%',
-				'ie >= 9',
-				'ie_mob >= 10',
-				'ff >= 30',
-				'chrome >= 34',
-				'safari >= 7',
-				'opera >= 23',
-				'ios >= 7',
-				'android >= 4',
-				'bb >= 10'
-			]
-		}))
+		.pipe(autoprefixer())
 		.pipe(dest("dist"))
 		.pipe(browserSync.stream());
 };
