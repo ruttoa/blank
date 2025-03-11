@@ -102,6 +102,8 @@
       "fontStyle": true,
       "lineHeight": false,
       "writingMode": true,
+      "defaultFontSizes": false,
+      "fluid": false,
       "fontFamilies": [
         {
           "name": "Heading",
@@ -161,60 +163,6 @@
           "slug": "h1",
           "size": "clamp( calc( 1rem * pow( var(--wp--custom--type-scale-mobile), 6 ) ), calc( ( ( pow( var(--wp--custom--type-scale-desktop), 6 ) * 18) / 1920) * 100vw ), calc( 1rem * pow( var(--wp--custom--type-scale-desktop), 6 ) ) )",
           "fluid": false
-        },
-        {
-          "name": "Lead paragraphh",
-          "slug": "leadh",
-          "size": "1.2rem",
-          "fluid": {
-						"min": "1.2rem",
-						"max": "1.333rem"
-					}
-        },
-        {
-          "name": "H55",
-          "slug": "h55",
-          "size": "1.44rem",
-          "fluid": {
-						"min": "1.44rem",
-						"max": "1.777rem"
-					}
-        },
-        {
-          "name": "H44",
-          "slug": "h44",
-          "size": "1.728rem",
-          "fluid": {
-						"min": "1.728rem",
-						"max": "2.369rem"
-					}
-        },
-        {
-          "name": "H33",
-          "slug": "h33",
-          "size": "2.074rem",
-          "fluid": {
-						"min": "2.074rem",
-						"max": "3.157rem"
-					}
-        },
-        {
-          "name": "H22",
-          "slug": "h22",
-          "size": "2.488rem",
-          "fluid": {
-						"min": "2.488rem",
-						"max": "4.209rem"
-					}
-        },
-        {
-          "name": "H11",
-          "slug": "h11",
-          "size": "2.986rem",
-          "fluid": {
-						"min": "2.986rem",
-						"max": "5.61rem"
-					}
         }
       ]
     },
