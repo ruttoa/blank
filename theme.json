@@ -293,6 +293,12 @@
 				"typography": {
 					"fontWeight": "700",
 					"lineHeight": "1.15"
+				},
+        "spacing": {
+					"margin": {
+						"bottom": "var:preset|spacing|30",
+						"top": "var:preset|spacing|30"
+					}
 				}
 			},
 			"link": {
